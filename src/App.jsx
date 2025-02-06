@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
 import { getChatResponse } from "./chatbot";
 import { Button } from "./components/button/button";
 import { Input } from "./components/input/input";
@@ -30,6 +31,13 @@ export default function Chatbot() {
     setMessages([...newMessages, { sender: "bot", text: botReplyText }]);
   };
 
+  const handleOnKeydown = async(e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Ngăn việc xuống dòng
+      await sendMessage(); // Gọi hàm submit
+    }
+  }
+
   return (
     <div className="flex flex-col h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
       <div className="p-4 bg-gray-800 border-b border-gray-700 shadow-lg">
@@ -50,7 +58,7 @@ export default function Chatbot() {
             }`}
             style={{ maxWidth: "75%", width: "fit-content" }}
           >
-            {msg.text}
+            <ReactMarkdown>{msg.text}</ReactMarkdown>
           </motion.div>
         ))}
         {typingMessage && (
@@ -72,7 +80,7 @@ export default function Chatbot() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type your message..."
-          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          onKeyDown={handleOnKeydown}
         />
         <Button
           onClick={sendMessage}
