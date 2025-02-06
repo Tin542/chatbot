@@ -39,7 +39,7 @@ export default function Chatbot() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
+    <div className="flex flex-col h-screen bg-black text-white">
       <div className="p-4 bg-gray-800 border-b border-gray-700 shadow-lg">
         <h1 className="text-2xl font-bold text-center text-white">Chatbot Assistant</h1>
         <p className="text-sm text-center text-gray-400">Ask me anything and I will try to help!</p>
@@ -58,7 +58,7 @@ export default function Chatbot() {
             }`}
             style={{ maxWidth: "75%", width: "fit-content" }}
           >
-            <ReactMarkdown>{msg.text}</ReactMarkdown>
+             <ReactMarkdown>{msg.text}</ReactMarkdown>
           </motion.div>
         ))}
         {typingMessage && (
